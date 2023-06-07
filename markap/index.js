@@ -23,20 +23,24 @@ const obj = {
     }
   };
   
-  function convert(obj) {
-    const newObj = {
-      x: obj.inner.x,
-      y: obj.y,
-      z: obj.inner.z,
-      k: obj.foo2.k,
-      p: obj.foo2.p
-    };
-  
+  function assign(object) {
+    const newObj = {};
+
+    for (let key in object) {
+      if (typeof object[key] === 'object') {
+        Object.assign(newObj, assign(object[key]))
+    } else {
+      newObj[key] =object[key];
+    }
+  }
+
     return newObj;
   }
   
-  const newObj = convert(obj);
-  console.log(newObj);
+  const resultNewObj = assign(obj);
+  
+  console.log(resultNewObj);
+
 
 
  
